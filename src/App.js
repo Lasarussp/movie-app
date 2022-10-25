@@ -35,7 +35,7 @@ function Msg (props) {
 
 function AddColor() {
   const [color,setColor] = useState("plum");
-
+const colorList = ["pink","plum","purple"]
   const styles = {
     background: color,
     fontSize:"20px"
@@ -49,9 +49,24 @@ function AddColor() {
       placeholder="Enter a color"
       value={color}
        />
+       <button>Add Color</button>
+       <ColorBox color="pink"/>
+  
     </div>
   );
 }
+
+
+function ColorBox ({ color }) {
+  const styles = {
+    background: color,
+    height: "50px",
+    width: "250px",
+    marginTop: "10px",
+  }
+  return (<div style={styles}></div>)
+}
+
 
 
 function Counter() {
