@@ -1,19 +1,13 @@
-//import logo from './logo.svg';
-import { useState } from 'react';
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import './App.css';
+import { Home } from './Home';
+import { AddColor } from './AddColor';
+import { MovieList } from "./MovieList";
+import { useState } from "react";
+//import { Msg } from "./Msg";
 
 function App() {
-  //const names = ["vijay","vinay","lasarus","ravi"];
-  const users = [
-    {name:"bala" ,
-     pic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO4blN7jswbF3rCl7S2baUBCwvNtHZJ7JaWw&usqp=CAU", },
-    {name:"vijay", 
-     pic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW9ldBnL7ntmA7xWSAjs0IEkG4F7Xlkmtj5w&usqp=CAU", },
-    {name:"Lasarus", 
-    pic:"https://wallpaperaccess.com/full/2213424.jpg",}
-  ];
-
-  const movieList =  [
+  const INITIAL_MOVIE_LIST =  [
     {
       name: "Vikram",
       poster:
@@ -86,122 +80,39 @@ function App() {
     }
   ];
   
+  const [movieList,setMovieList] = useState(INITIAL_MOVIE_LIST);
 
   return (
     <div className="App">
-  {/*  {users.map((usr) =>
-    <Welcome name={usr.name} pic={usr.pic} /> )} */}
+    <ul>
+      <li><Link to="/">Home</Link></li>
+      <li><Link to="/color-game">Color game</Link></li>
+      <li><Link to="/movies">Movies</Link></li>
+    </ul>
 
-   {/*<AddColor /> */}
-     <div className='movie-list-container'>
-     {movieList.map((mv)=>(<Movie movie={mv} />))}
-     </div>
+   <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/color-game" element={<AddColor />} />
+    <Route path="/films" element={<Navigate replace to="/movies" />} />
+    <Route path="/movies" element={<MovieList movieList={movieList} setMovieList={setMovieList} />} /> 
+    <Route path="*" element={<Navigate replace to="/404" />} />
+    <Route path="/404" element={<NotFound />} /> 
+   </Routes>
     </div>
   );
 };
 
-function Movie({movie}) {
-  return <div className='movie-container'>
-       <img src={movie.poster} alt={movie.name} className="movie-poster" />
-       <div className='movie-specs'>
-        <h2 className='movie-name'>{movie.name}</h2>
-        <p className='movie-rating'>⭐{movie.rating}</p>
-        </div>
-        <p className='movie-summary'>{movie.summary}</p>
-       {/* <Counter /> */}
-       </div>
-}
-  
+export default App;
 
 
-
-
-
-
-
-
-
-
-function Msg (props) {
-  // const name = "Lasarus";
-  // console.log(props.name)
-   return(
-    <div> 
-     <h1>Hello,{props.name} 🎊🎊🎉 </h1>
-    </div> 
-   );
- }
-
-
-function AddColor() {
-  const [color,setColor] = useState("plum");
-  const INITIAL_COLOR_LIST = ["pink","plum","purple"]
-  const [colorList,setColorList] = useState(INITIAL_COLOR_LIST);
-  const styles = {
-    background: color,
-    fontSize:"20px"
-  };
-  return(
-    <div> 
-      <input 
-      style = {styles} 
-      type="text" 
-      onChange={(event)=> setColor(event.target.value)}
-      placeholder="Enter a color"
-      value={color}
-       />
-       {/*copy the colorlist & add color */}
-       <button onClick={() => setColorList([...colorList,color])}>Add Color</button>
-       {colorList.map((clr)=>(<ColorBox color={clr} />))}
-
-  
-    </div>
-  );
-}
-
-
-function ColorBox ({ color }) {
-  const styles = {
-    background: color,
-    height: "50px",
-    width: "250px",
-    marginTop: "10px",
-  }
-  return (<div style={styles}></div>)
-}
-
-
-
-function Counter() {
- // let like = 10;
- // const [state,setState] = useState(InitialValue);
- //camelCase = onclick => onClick
- const [like,setLike] = useState(0);
- const [disLike,setDisLike] = useState(0);
+function NotFound() {
   return (
-     <div>
-      <button onClick={() =>{ setLike(like + 1)}}>👍 {like}</button>
-      <button onClick={() =>{ setDisLike(disLike + 1)}}>👎 {disLike}</button>
-     </div>
+    <div>
+     <img 
+     className="not-found"
+     src="https://cdn.dribbble.com/users/1175431/screenshots/6188233/media/507f015a7efd81cec270faf9c4f1aabd.gif"
+     alt="404 not found"
+     />
+    </div>
   )
 }
-
-
-function Welcome (props) {
-  // const name = "Lasarus";
-  // console.log(props.name)
-   return(
-    <div> 
-     <img className ="profile-pic" src={props.pic} alt={props.name} />
-     <h1>Hello,{props.name} 🎊🎊🎉 </h1>
-     <Counter />
-    </div> 
-   )
- }
-
-
-
-
-
-
-export default App;
