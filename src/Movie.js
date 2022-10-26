@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Counter } from "./Counter";
 
 export function Movie({ movie,id }) {
   const styles = {
     color : movie.rating > 8 ? "green" : "red" ,
   };
   const [show,setShow] = useState(true);
-  const paraStyles = {
+  /*const paraStyles = {
     display: show ? "block" : "none" ,
-  };
+  }; */
 
   const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ export function Movie({ movie,id }) {
      {/* conditional rendering */}
       { show ?  <p className='movie-summary'>{movie.summary}</p> : null } 
 
-      {/* <Counter /> */}
+     <Counter />
     </div>
   );
 }
