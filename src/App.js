@@ -1,4 +1,4 @@
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Link, Navigate, useParams } from "react-router-dom";
 import './App.css';
 import { Home } from './Home';
 import { AddColor } from './AddColor';
@@ -95,7 +95,9 @@ function App() {
     <Route path="/color-game" element={<AddColor />} />
     <Route path="/films" element={<Navigate replace to="/movies" />} />
     <Route path="/movies" element={<MovieList movieList={movieList} setMovieList={setMovieList} />} /> 
-    <Route path="*" element={<Navigate replace to="/404" />} />
+
+    <Route path="/movies/:id" element={<MovieDetails />} /> 
+    <Route path="*" element={<Navigate replace to="/404" />} /> 
     <Route path="/404" element={<NotFound />} /> 
    </Routes>
     </div>
@@ -113,6 +115,15 @@ function NotFound() {
      src="https://cdn.dribbble.com/users/1175431/screenshots/6188233/media/507f015a7efd81cec270faf9c4f1aabd.gif"
      alt="404 not found"
      />
+    </div>
+  )
+}
+
+function MovieDetails() {
+  const { id } = useParams();
+  return(
+    <div>
+      <h1> Movie details of {id}....🎉🎉✨</h1>
     </div>
   )
 }

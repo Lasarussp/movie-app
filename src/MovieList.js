@@ -41,7 +41,7 @@ export function MovieList({ movieList,setMovieList }) {
           </button>
     </div>
     <div className='movie-list-container'>
-      {movieList.map((mv,index) => (<Movie movie={mv} key={index} />))}
+      {movieList.map((mv,index) => (<Movie movie={mv} key={index} id={index}/>))}
     </div>
     </div>
   );
